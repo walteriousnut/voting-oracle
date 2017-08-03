@@ -57,11 +57,10 @@ contract Election {
   // Only that singleton contract should ever call this function.
   function setElegibility(address voter, bool eligible){
 
-    // Only the singleton oracle should ever call this.
-    // if (msg.sender == address(oracle)) { throw; }
+    // TODO: Only the singleton oracle should ever call this.
 
     // If the defined voter hasn't ever voted, not good.
-    // if (!votes[voter].initialized) { throw; }
+    if (!votes[voter].initialized) { throw; }
 
     if (eligible) {
       // Confirmed to be eligible. finalise the vote and update the counter
