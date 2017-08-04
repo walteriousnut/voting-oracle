@@ -36,10 +36,10 @@ var watcher = electionInstance.allEvents((error, result) => {
   
   if (result.event === "Finalised") {
     console.log("A Vote was Finalised");
-    console.log("Total: " + new BigNumber(electionInstance.total()));
-    console.log("Unconfirmed: " + new BigNumber(electionInstance.totalUnconfirmed()));
-    console.log("Ineligible: " + new BigNumber(electionInstance.totalInelegible()));
-    console.log("Confirmed: " + new BigNumber(electionInstance.totalConfirmed()));
+    console.log("Total: " + electionInstance.total().toNumber());
+    console.log("Unconfirmed: " + electionInstance.totalUnconfirmed().toNumber());
+    console.log("Ineligible: " + electionInstance.totalInelegible().toNumber());
+    console.log("Confirmed: " + electionInstance.totalConfirmed().toNumber());
     console.log("-----------------------------");
   }  
 });
