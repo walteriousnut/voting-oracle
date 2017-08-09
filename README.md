@@ -12,7 +12,7 @@ The Election contract manages an end-to-end election (or ballot). A new contract
 ### [EligibilityOracle.sol](truffle/contracts/EligibilityOracle.sol)
 A singleton Contract (meaning there should only ever be one of these in the whole network) that is responsible for marshalling calls to the off-chain eligibility oracle service.
 
-Of course, smart contracts can't make external calls, so what appears to be an external call is in-fact an Event publication with a unique identifier followed by am independent transaction to the Oracle Contract with that same identifier coupled with any external data requested.
+Of course, smart contracts can't make external calls, so what appears to be an external call is in-fact an Event publication with a unique identifier followed by an independent transaction to the Oracle Contract with that same identifier coupled with any external data requested.
 
 ## Command-line Voting Apps and Oracles
 To keep this demo as simple as possible, all the external apps are node.js command-line scripts.
@@ -28,10 +28,6 @@ node vote.js 0x12345 0x67890
 ```
 
 Once a vote is completed, the script watches the Election contract and provides feedback on voting and Eligibility requests as they are finalised by the Oracle.
-
-```
- TODO : Command-line output of the voter goes here
-```
 
 ### Eligibility Oracle
 
