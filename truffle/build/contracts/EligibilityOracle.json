@@ -1,0 +1,93 @@
+{
+  "contract_name": "EligibilityOracle",
+  "abi": [
+    {
+      "constant": false,
+      "inputs": [],
+      "name": "eligibilityOracle",
+      "outputs": [],
+      "payable": false,
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "voter",
+          "type": "address"
+        },
+        {
+          "name": "callback",
+          "type": "function"
+        }
+      ],
+      "name": "checkEligibility",
+      "outputs": [],
+      "payable": false,
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "requestId",
+          "type": "uint256"
+        },
+        {
+          "name": "response",
+          "type": "bool"
+        }
+      ],
+      "name": "reply",
+      "outputs": [],
+      "payable": false,
+      "type": "function"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "name": "_from",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "name": "_value",
+          "type": "uint256"
+        }
+      ],
+      "name": "CheckEligibilityEvent",
+      "type": "event"
+    }
+  ],
+  "unlinked_binary": "0x606060405234610000575b61032a806100196000396000f300606060405263ffffffff60e060020a6000350416633ce8377d811461003a5780637540948314610049578063d2928eee1461008b575b610000565b34610000576100476100a2565b005b3461000057610047600435600160a060020a03166c010000000000000000000000006024359081049068010000000000000000900463ffffffff166100a5565b005b3461000057610047600435602435151561026a565b005b5b565b6000805480600101828181548183558181151161012a5760020281600202836000526020600020918201910161012a91905b8082111561012657805473ffffffffffffffffffffffffffffffffffffffff1916815560018101805478ffffffffffffffffffffffffffffffffffffffffffffffffff191690556002016100d7565b5090565b5b505050916000526020600020906002020160005b5060408051606081018252600160a060020a0380881680835268010000000000000000640100000000808a0263ffffffff808b1691909117830260208088018290526001978901889052895473ffffffffffffffffffffffffffffffffffffffff191686178a5598909601805478ff000000000000000000000000000000000000000000000000196c01000000000000000000000000890490971690930293909604169190911777ffffffffffffffffffffffffffffffffffffffffffffffff199091161791909116780100000000000000000000000000000000000000000000000017909155600054825160001991909101815291519093507fa65d08982866c703e32c2bc329b36b0c6557d224330ff88f11b130d567480255929181900390910190a25b505050565b6000600083815481101561000057906000526020600020906002020160005b50600181015481546040805163ffffffff841660e060020a81028252600160a060020a0393841660048301528715156024830152915194955064010000000090930490911692909160448082019260009290919082900301818387803b156100005760325a03f115610000575050505b5050505600a165627a7a723058205777a3e36adc8243128fcab1674ec4711c379e4c0c2fc086bbbf64728bde49a00029",
+  "networks": {
+    "1502262025585": {
+      "events": {
+        "0xa65d08982866c703e32c2bc329b36b0c6557d224330ff88f11b130d567480255": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "name": "_from",
+              "type": "address"
+            },
+            {
+              "indexed": false,
+              "name": "_value",
+              "type": "uint256"
+            }
+          ],
+          "name": "CheckEligibilityEvent",
+          "type": "event"
+        }
+      },
+      "links": {},
+      "address": "0x6cef14531752e6a126ffecaa795e15df29fbab9a",
+      "updated_at": 1502262038297
+    }
+  },
+  "schema_version": "0.0.5",
+  "updated_at": 1502267982788
+}

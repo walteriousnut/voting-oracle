@@ -1,0 +1,173 @@
+{
+  "contract_name": "Election",
+  "abi": [
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "totalInvalid",
+      "outputs": [
+        {
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "payable": false,
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "total",
+      "outputs": [
+        {
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "payable": false,
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "totalConfirmed",
+      "outputs": [
+        {
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "payable": false,
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "totalUnconfirmed",
+      "outputs": [
+        {
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "payable": false,
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "voter",
+          "type": "address"
+        },
+        {
+          "name": "eligible",
+          "type": "bool"
+        }
+      ],
+      "name": "setElegibility",
+      "outputs": [],
+      "payable": false,
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [],
+      "name": "vote",
+      "outputs": [],
+      "payable": false,
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "totalInelegible",
+      "outputs": [
+        {
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "payable": false,
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "state",
+      "outputs": [
+        {
+          "name": "",
+          "type": "uint8"
+        }
+      ],
+      "payable": false,
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "payable": false,
+      "type": "constructor"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "name": "Voted",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "name": "Finalised",
+      "type": "event"
+    }
+  ],
+  "unlinked_binary": "0x606060405234610000575b6000805460ff191690555b5b610467806100256000396000f300606060405236156100725763ffffffff60e060020a60003504166325a08f5381146100775780632ddbd13a146100965780634028a0f1146100b55780635eae2719146100d4578063617fc82c146100f3578063632a9a52146101135780637b10625a14610122578063c19d93fb14610141575b610000565b346100005761008461016f565b60408051918252519081900360200190f35b3461000057610084610175565b60408051918252519081900360200190f35b346100005761008461017b565b60408051918252519081900360200190f35b3461000057610084610181565b60408051918252519081900360200190f35b3461000057610111600160a060020a03600435166024351515610187565b005b3461000057610111610267565b005b346100005761008461042c565b60408051918252519081900360200190f35b346100005761014e610432565b6040518082600281116100005760ff16815260200191505060405180910390f35b60055481565b60015481565b60045481565b60025481565b600160a060020a03821660009081526006602052604090205460a860020a900460ff1615156101b557610000565b80156101ef57600160a060020a0382166000908152600660205260409020805460ff1916600190811790915560048054909101905561021c565b600160a060020a0382166000908152600660205260409020805460ff191660021790556003805460010190555b6002805460001901905560408051600160a060020a038416815290517f94c2dafff8ad02df920d3ce35d663c5069566f9c7303e8da142be8f3d97267819181900360200190a15b5050565b33600160a060020a031660009081526006602052604090205460a860020a900460ff161561029457610000565b60408051606081018252600080825233600160a060020a0316602080840182905260018486018190529183526006905292902081518154929391929091839160ff19169083600281116100005702179055506020820151815460409384015174ffffffffffffffffffffffffffffffffffffffff0019909116610100600160a060020a03938416021775ff000000000000000000000000000000000000000000191660a860020a9115159190910217909155600180548101815560028054909101905581517f75409483000000000000000000000000000000000000000000000000000000008152338216600482015263617fc82c309092166401000000000291909117680100000000000000000260248201529051736cef14531752e6a126ffecaa795e15df29fbab9a91637540948391604480830192600092919082900301818387803b156100005760325a03f11561000057505060408051600160a060020a033316815290517f16a9aa39af49f169911e977347975198c503525f7240d6892a626f0227642fce92509081900360200190a15b565b60035481565b60005460ff16815600a165627a7a72305820c15a45e553786f5ada139a2ac9db8d1a47708b9212df35581b0c18f4768f6fad0029",
+  "networks": {
+    "1502262025585": {
+      "events": {
+        "0x16a9aa39af49f169911e977347975198c503525f7240d6892a626f0227642fce": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "name": "",
+              "type": "address"
+            }
+          ],
+          "name": "Voted",
+          "type": "event"
+        },
+        "0x94c2dafff8ad02df920d3ce35d663c5069566f9c7303e8da142be8f3d9726781": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "name": "",
+              "type": "address"
+            }
+          ],
+          "name": "Finalised",
+          "type": "event"
+        }
+      },
+      "links": {},
+      "address": "0x0b5a9127a59900a00de66a6908c5428fac16469f",
+      "updated_at": 1502267983204
+    }
+  },
+  "schema_version": "0.0.5",
+  "updated_at": 1502267983204
+}

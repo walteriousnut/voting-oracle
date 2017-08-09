@@ -23,7 +23,8 @@ contract Election {
   event Voted(address);
   event Finalised(address); 
 
-  EligibilityOracle constant oracle = EligibilityOracle(0x70962db1bdd843c719c0ddd181262746732c09eb);
+  EligibilityOracle constant oracle = EligibilityOracle(0x6cef14531752e6a126ffecaa795e15df29fbab9a);
+
 
   function Election() {
     // constructor

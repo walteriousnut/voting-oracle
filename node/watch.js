@@ -7,6 +7,7 @@ const rl = readline.createInterface({
   output: process.stdout
 });
 
+// Prepare the web3 instance and connect it to my RPC endpoint.
 if (typeof web3 !== 'undefined') {
   web3 = new Web3(web3.currentProvider);
 } else {
@@ -14,20 +15,22 @@ if (typeof web3 !== 'undefined') {
   web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:8545"));
 }
 
-// Create a rudimentary voter roll that includes only even numbered voters.
-console.log("Network contains + " + web3.eth.accounts.length + " voters.");
+// Create a rudimentary voter roll that includes only even numbered voters based on the accounts managed by my RPC endpoint
+console.log("\nNetwork contains + " + web3.eth.accounts.length + " voters.\n");
 var voters = web3.eth.accounts.filter((element, index) => {
   return index % 2 === 0;
 });
 
-console.log("The following voters are eligible " + voters);
+console.log("The following voters are eligible " + voters  + "\n\n");
 
+// Create a reference to the Oracle contract.
 var oracleAbi = '[{"constant": false,"inputs": [],"name": "eligibilityOracle","outputs": [],"payable": false,"type": "function"},{"constant": false,"inputs": [{"name": "voter","type": "address"},{"name": "callback","type": "function"}],"name": "checkEligibility","outputs": [],"payable": false,"type": "function"},{"constant": false,"inputs": [{"name": "requestId","type": "uint256"},{"name": "response","type": "bool"}],"name": "reply","outputs": [],"payable": false,"type": "function"},{"anonymous": false,"inputs": [{"indexed": true,"name": "_from","type": "address"},{"indexed": false,"name": "_value","type": "uint256"}],"name": "CheckEligibilityEvent","type": "event"}]';
 var oracleAbiObj = JSON.parse(oracleAbi);
-var oracleAddress =  args[0]; // '0x6be34af0753002f3c52f59bc6eafb012e649f4bc';
+var oracleAddress =  args[0];
 
 var oracleInstance = web3.eth.contract(oracleAbiObj).at(oracleAddress);
 
+// Watch all events published from this contract, I could have also just subscribed to the 'CheckEligibilityEvent' specifically.
 var watcher = oracleInstance.allEvents((error, result) => { 
   if (error) { 
     console.error(error); 
@@ -39,7 +42,7 @@ var watcher = oracleInstance.allEvents((error, result) => {
     var requestId = result.args['_value'];
     var eligible = false;
 
-    console.log("-----------------------------");
+    console.log("\n-----------------------------");
     console.log("Received Eligibility Check #" + result.args['_value'] + " for: " + result.args['_from']);
     if (voters.indexOf(voter) > -1) {
       console.log("Voter is Eligible.");
@@ -48,42 +51,18 @@ var watcher = oracleInstance.allEvents((error, result) => {
     else {
       console.log("Voter in Ineligible.");
     }
+    console.log("----------------------------\n");
 
     // Reply to the Oracle Contract to provide the eligibility result.
+    console.log("Replying to the Oracle Contract ...")
     oracleInstance.reply(requestId, eligible, {from: args[1], gas: 200000}, function(error, result) { if (!error) console.log(result); else console.error(error);});
+    console.log("----------------------------\n");
   }  
 });
 
-rl.question('Oracle is watching. Hit any key to exit. ', (answer) => {
+// Use readline to allow users to hit any key to exit.
+rl.question('Oracle is watching. Hit any key to exit. \n', (answer) => {
   console.log('Exiting');
   watcher.stopWatching();
   rl.close();
 });
-
-// All the code below is for web3 v1b13
-
-// Check Event parameters.
-  var requestId = 1;
-  var account = 0x0;
-  
-  // Lookup Eligibility here ...
-  var eligible = true;
-  // ...
-
-  // Call back to the Oracle contract with results.
-  /* oracleInstance.methods.reply(requestId, account, eligible).send({from: '0x31251985aca22dfe2aaaf2daca29a26a66c1228e', gas: 1000000})
-  .on('transactionHash', hash => {
-      console.log("Hash!");
-      console.log(hash);
-  })
-  .on('receipt', receipt => {
-      console.log("Receipt!");
-      console.log(receipt);
-  })
-  .on('confirmation', (confirmationNumber, receipt) => {
-      console.log("Confirmation!");
-      console.log(confirmationNumber);
-      console.log(receipt);
-  })
-  .on('error', console.error);
-  */

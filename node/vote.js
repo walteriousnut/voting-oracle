@@ -24,7 +24,7 @@ var electionAddress= args[0]; //'0x958484363b03f5cff8de94986a3537bd4f9c84de';
 
 var electionInstance = web3.eth.contract(electionAbiObj).at(electionAddress);
 
-console.log("Placing Vote for: [" + args[1] + "]");
+console.log("\nPlacing Vote for: [" + args[1] + "]");
 
 electionInstance.vote({from: args[1], gas: 200000}, function(error, result) { if (!error) console.log(result); else console.error(error);});
 
@@ -35,16 +35,16 @@ var watcher = electionInstance.allEvents((error, result) => {
   } 
   
   if (result.event === "Finalised") {
-    console.log("A Vote was Finalised");
+    console.log("\nA Vote was Finalised");
     console.log("Total: " + electionInstance.total().toNumber());
     console.log("Unconfirmed: " + electionInstance.totalUnconfirmed().toNumber());
     console.log("Ineligible: " + electionInstance.totalInelegible().toNumber());
     console.log("Confirmed: " + electionInstance.totalConfirmed().toNumber());
-    console.log("-----------------------------");
+    console.log("-----------------------------\n");
   }  
 });
 
-rl.question('Vote Submitted, watching Election ... Hit any key to exit. ', (answer) => {
+rl.question('\nVote Submitted, watching Election ... Hit any key to exit.\n ', (answer) => {
   console.log('Exiting');
   watcher.stopWatching();
   rl.close();
