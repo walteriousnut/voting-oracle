@@ -94,6 +94,29 @@ module.exports = {
 };
 ```
 
+### TestRPC
+Before deploying the contracts, you need to have somewhere to deploy them to.
+
+To avoid the complexity of a real Ethereum network so that this demo can focus on the Oracle pattern, I'm using [TestRPC](https://github.com/ethereumjs/testrpc).
+
+TestRPC is an in-memory implementation of the Ethereum spec, it's not a full implementation, but certainly enough to run most contracts and interact over RPC.
+It's perfect for unit testing contracts.
+
+My TestRPC instance created these accounts:
+
+```
+(0) 0xf6fb16b045b12511abb4aa405457e1be475b0c55
+(1) 0x02d1057e87efcc2a7b4b624ad4606f3928942f42
+(2) 0x39d7a0049f2728820844507d6d012b844252fbfc
+(3) 0xebf3d5518cca85f79b9df3ac306f62288dba0090
+(4) 0x7817096c34e13d15fb9c02b8b2b315f62b4b998b
+(5) 0xeca977684dcd95f629495344163c0bd5322dd9b2
+(6) 0xde13dddc8077a63c7264b36658061dbd70639b96
+(7) 0x6dac542ac0430215367b1c49a11301cad91cf7de
+(8) 0xe74d70d0fc8a5350c6c2a43cea21aae1b7a311a6
+(9) 0x689ed2b02b85ee267f9da09b5da202cf3ac9a463
+```
+
 ### Deployment Sequence
 Regardless of how you deploy the contract, it's important to deploy the Oracle contract first. Because the Election contracts need to reference the Oracle.
 
@@ -180,21 +203,6 @@ npm install bignumber.js
 ## Starting the Oracle
 Now that the contracts are deployed to your network, you can start the Oracle
 
-My TestRPC instance created these accounts:
-
-```
-(0) 0xf6fb16b045b12511abb4aa405457e1be475b0c55
-(1) 0x02d1057e87efcc2a7b4b624ad4606f3928942f42
-(2) 0x39d7a0049f2728820844507d6d012b844252fbfc
-(3) 0xebf3d5518cca85f79b9df3ac306f62288dba0090
-(4) 0x7817096c34e13d15fb9c02b8b2b315f62b4b998b
-(5) 0xeca977684dcd95f629495344163c0bd5322dd9b2
-(6) 0xde13dddc8077a63c7264b36658061dbd70639b96
-(7) 0x6dac542ac0430215367b1c49a11301cad91cf7de
-(8) 0xe74d70d0fc8a5350c6c2a43cea21aae1b7a311a6
-(9) 0x689ed2b02b85ee267f9da09b5da202cf3ac9a463
-```
-
 I'll use account 0 for the Oracle's account and demonstrate voting with some of the others.
 
 To start the Oracle:
@@ -223,7 +231,7 @@ In another console, we now do some voting.
 ```
 (from the voting-oracle directory)
 cd node
-node vote.js 0xcef084fbd97d9cfb5935891425b77e1b6ff5a5d3 0x02d1057e87efcc2a7b4b624ad4606f3928942f42
+node vote.js 0x0b5a9127a59900a00de66a6908c5428fac16469f 0x02d1057e87efcc2a7b4b624ad4606f3928942f42
 
 Placing Vote for: [0x02d1057e87efcc2a7b4b624ad4606f3928942f42]
 
@@ -256,3 +264,38 @@ Confirmed: 0
 ```
 
 If you send another vote from a new console, the previous vote console will continue to watch the election and report on the election totals as the Oracle confirms eligibility.
+
+Here's what that looks like:
+
+On the new console:
+```
+node vote.js 0x0b5a9127a59900a00de66a6908c5428fac16469f 0x39d7a0049f2728820844507d6d012b844252fbfc
+
+Placing Vote for: [0x39d7a0049f2728820844507d6d012b844252fbfc]
+
+Vote Submitted, watching Election ... Hit any key to exit.
+ 0x14f0580f78049d316067d9ea54455dfa7af6db3ebfb5e53ab443490f90943b74
+```
+
+On the Oracle we received the second request:
+```
+-----------------------------
+Received Eligibility Check #1 for: 0x39d7a0049f2728820844507d6d012b844252fbfc
+Voter is Eligible.
+----------------------------
+
+Replying to the Oracle Contract ...
+----------------------------
+
+0x9bd66d78bffd426a8b8994e7654a0f9e674f69dc91ad425d58ec150021c9fc9c
+```
+
+And on the original voter console, where it s was left to watch the Election:
+```
+A Vote was Finalised
+Total: 2
+Unconfirmed: 0
+Ineligible: 1
+Confirmed: 1
+-----------------------------
+```
