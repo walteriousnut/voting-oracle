@@ -3,7 +3,7 @@ A simple voting oracle to demonstrate the Oracle pattern in Solidity
 
 Note: Only supports TestRPC (No unlocking or signing is included)
 
-[Architecture](images/architecture.png)
+![Architecture](images/architecture.png)
 
 ## Smart Contracts
 ### [Election.sol](truffle/contracts/Election.sol)
