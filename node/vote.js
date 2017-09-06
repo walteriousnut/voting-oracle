@@ -18,7 +18,7 @@ if (typeof web3 !== 'undefined') {
 var version = web3.version.api;
 console.log(version);
 
-var electionAbi = '[ { "constant": true, "inputs": [], "name": "totalInvalid", "outputs": [ { "name": "", "type": "uint256" } ], "payable": false, "type": "function" }, { "constant": true, "inputs": [], "name": "total", "outputs": [ { "name": "", "type": "uint256" } ], "payable": false, "type": "function" }, { "constant": true, "inputs": [], "name": "totalConfirmed", "outputs": [ { "name": "", "type": "uint256" } ], "payable": false, "type": "function" }, { "constant": true, "inputs": [], "name": "totalUnconfirmed", "outputs": [ { "name": "", "type": "uint256" } ], "payable": false, "type": "function" }, { "constant": false, "inputs": [ { "name": "voter", "type": "address" }, { "name": "eligible", "type": "bool" } ], "name": "setElegibility", "outputs": [], "payable": false, "type": "function" }, { "constant": false, "inputs": [], "name": "vote", "outputs": [], "payable": false, "type": "function" }, { "constant": true, "inputs": [], "name": "totalInelegible", "outputs": [ { "name": "", "type": "uint256" } ], "payable": false, "type": "function" }, { "constant": true, "inputs": [], "name": "state", "outputs": [ { "name": "", "type": "uint8" } ], "payable": false, "type": "function" }, { "inputs": [], "payable": false, "type": "constructor" }, { "anonymous": false, "inputs": [ { "indexed": false, "name": "", "type": "address" } ], "name": "Voted", "type": "event" }, { "anonymous": false, "inputs": [ { "indexed": false, "name": "", "type": "address" } ], "name": "Finalised", "type": "event" } ]';
+var electionAbi = '[ { "constant": true, "inputs": [], "name": "totalInvalid", "outputs": [ { "name": "", "type": "uint256" } ], "payable": false, "type": "function" }, { "constant": true, "inputs": [], "name": "total", "outputs": [ { "name": "", "type": "uint256" } ], "payable": false, "type": "function" }, { "constant": true, "inputs": [], "name": "totalConfirmed", "outputs": [ { "name": "", "type": "uint256" } ], "payable": false, "type": "function" }, { "constant": true, "inputs": [], "name": "totalUnconfirmed", "outputs": [ { "name": "", "type": "uint256" } ], "payable": false, "type": "function" }, { "constant": false, "inputs": [ { "name": "voter", "type": "address" }, { "name": "eligible", "type": "bool" } ], "name": "setElegibility", "outputs": [], "payable": false, "type": "function" }, { "constant": false, "inputs": [], "name": "vote", "outputs": [], "payable": false, "type": "function" }, { "constant": true, "inputs": [], "name": "totalInelegible", "outputs": [ { "name": "", "type": "uint256" } ], "payable": false, "type": "function" }, { "constant": true, "inputs": [], "name": "state", "outputs": [ { "name": "", "type": "uint8" } ], "payable": false, "type": "function" }, { "inputs": [ { "name": "oracleAddress", "type": "address" } ], "payable": false, "type": "constructor" }, { "anonymous": false, "inputs": [ { "indexed": false, "name": "", "type": "address" } ], "name": "Voted", "type": "event" }, { "anonymous": false, "inputs": [ { "indexed": false, "name": "", "type": "address" } ], "name": "Finalised", "type": "event" } ]';
 var electionAbiObj = JSON.parse(electionAbi);
 var electionAddress= args[0]; //'0x958484363b03f5cff8de94986a3537bd4f9c84de';
 
@@ -26,7 +26,7 @@ var electionInstance = web3.eth.contract(electionAbiObj).at(electionAddress);
 
 console.log("\nPlacing Vote for: [" + args[1] + "]");
 
-electionInstance.vote({from: args[1], gas: 200000}, function(error, result) { if (!error) console.log(result); else console.error(error);});
+electionInstance.vote.sendTransaction({from: args[1], gas: 200000}, function(error, result) { if (!error) console.log(result); else console.error(error);});
 
 var watcher = electionInstance.allEvents((error, result) => { 
   if (error) { 
@@ -36,10 +36,10 @@ var watcher = electionInstance.allEvents((error, result) => {
   
   if (result.event === "Finalised") {
     console.log("\nA Vote was Finalised");
-    console.log("Total: " + electionInstance.total().toNumber());
-    console.log("Unconfirmed: " + electionInstance.totalUnconfirmed().toNumber());
-    console.log("Ineligible: " + electionInstance.totalInelegible().toNumber());
-    console.log("Confirmed: " + electionInstance.totalConfirmed().toNumber());
+    console.log("Total: " + electionInstance.total.call().toNumber());
+    console.log("Unconfirmed: " + electionInstance.totalUnconfirmed.call().toNumber());
+    console.log("Ineligible: " + electionInstance.totalInelegible.call().toNumber());
+    console.log("Confirmed: " + electionInstance.totalConfirmed.call().toNumber());
     console.log("-----------------------------\n");
   }  
 });

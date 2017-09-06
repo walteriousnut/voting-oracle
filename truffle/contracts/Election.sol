@@ -23,11 +23,11 @@ contract Election {
   event Voted(address);
   event Finalised(address); 
 
-  EligibilityOracle constant oracle = EligibilityOracle(0x6cef14531752e6a126ffecaa795e15df29fbab9a);
+  EligibilityOracle Oracle;
 
-
-  function Election() {
-    // constructor
+  function Election(address oracleAddress) {
+    // constructor]
+    Oracle = EligibilityOracle(oracleAddress);
     state = ElectionStates.Proposed;
   }
 
@@ -48,7 +48,7 @@ contract Election {
     totalUnconfirmed++;
 
     // Call the eligibility oracle and provide it with a pointer to our callback function.
-    oracle.checkEligibility(msg.sender, this.setElegibility);
+    Oracle.checkEligibility(msg.sender, this.setElegibility);
 
     // Fire the Voted event for any externals who might be watching.
     Voted(msg.sender);
@@ -56,7 +56,7 @@ contract Election {
 
   // This function is provided as the callback from the eligibility oracle contract.
   // Only that singleton contract should ever call this function.
-  function setElegibility(address voter, bool eligible){
+  function setElegibility(address voter, bool eligible) {
 
     // TODO: Only the singleton oracle should ever call this.
 

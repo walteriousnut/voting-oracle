@@ -55,7 +55,7 @@ var watcher = oracleInstance.allEvents((error, result) => {
 
     // Reply to the Oracle Contract to provide the eligibility result.
     console.log("Replying to the Oracle Contract ...")
-    oracleInstance.reply(requestId, eligible, {from: args[1], gas: 200000}, function(error, result) { if (!error) console.log(result); else console.error(error);});
+    oracleInstance.reply.sendTransaction(requestId, eligible, {from: args[1], gas: 200000}, function(error, result) { if (!error) console.log(result); else console.error(error);});
     console.log("----------------------------\n");
   }  
 });
